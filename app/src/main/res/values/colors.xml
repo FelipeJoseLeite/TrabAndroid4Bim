@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="prata">#dcdcdc</color>
+    <color name="prata1">#666f88</color>
+    <color name="prata2">#b5b5b5</color>
+    <color name="yellow">#f9ff3b</color>
+    <color name="green">#559e46</color>
+</resources>
