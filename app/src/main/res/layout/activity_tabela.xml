@@ -1,0 +1,68 @@
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:background="@color/white"
+        android:id="@+id/tabelaDeputados">
+
+        <TableRow>
+            <TextView
+                android:text="ID"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:text="Nome"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:text="Sigla Partido"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:text="Sigla UF"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+            <TextView
+                android:text="Email"
+                android:padding="5dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:text="1"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:text="Nome do Deputado"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:text="Partido"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:text="UF"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:text="deputado@email.com"
+                android:padding="5dp"
+                android:gravity="center"/>
+        </TableRow>
+    </TableLayout>
+</HorizontalScrollView>
+
+
+
+

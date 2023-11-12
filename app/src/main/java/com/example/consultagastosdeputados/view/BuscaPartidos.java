@@ -1,13 +1,17 @@
-package com.example.consultagastosdeputados;
+package com.example.consultagastosdeputados.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.consultagastosdeputados.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,5 +75,23 @@ public class BuscaPartidos extends AppCompatActivity {
         spinnerDataMap.put(spSiglaPartido, data1);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data1);
         spSiglaPartido.setAdapter(adapter1);
+
+        spSiglaPartido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Obtém o item selecionado no Spinner
+                String selectedItem = (String) parentView.getItemAtPosition(position);
+
+                // Faça algo com o item selecionado, por exemplo, exibir em um Toast
+                Toast.makeText(BuscaPartidos.this, "Item selecionado: " + selectedItem, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Ação quando nenhum item é selecionado (opcional)
+            }
+        });
+
     }
+
 }
