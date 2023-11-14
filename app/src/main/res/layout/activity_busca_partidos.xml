@@ -69,6 +69,15 @@
             android:textSize="15dp"
             android:layout_marginLeft="50dp"
             android:fontFamily="@font/ubunto_medium"
-            android:background="@drawable/botaoverde"/>
+            android:background="@drawable/botaoverde"
+            android:id="@+id/btBuscar"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp">
+
+        <include layout="@layout/activity_tabela_partidos" />
+
     </LinearLayout>
 </LinearLayout>

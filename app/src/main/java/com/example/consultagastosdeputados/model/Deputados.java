@@ -3,20 +3,52 @@ package com.example.consultagastosdeputados.model;
 public class Deputados {
 
     private String id;
+
+    private String uri;
     private String nome;
     private String siglaPartido;
     private String siglaUf;
+    private String idLegislatura;
+
+    private String urlFoto;
     private String email;
 
     public Deputados() {
     }
 
-    public Deputados(String id, String nome, String siglaPartido, String siglaUf, String email) {
+    public Deputados(String id, String uri, String nome, String siglaPartido, String siglaUf, String idLegislatura, String urlFoto, String email) {
         this.id = id;
+        this.uri = uri;
         this.nome = nome;
         this.siglaPartido = siglaPartido;
         this.siglaUf = siglaUf;
+        this.idLegislatura = idLegislatura;
+        this.urlFoto = urlFoto;
         this.email = email;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getIdLegislatura() {
+        return idLegislatura;
+    }
+
+    public void setIdLegislatura(String idLegislatura) {
+        this.idLegislatura = idLegislatura;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
     public String getId() {

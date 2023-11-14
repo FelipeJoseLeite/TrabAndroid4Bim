@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.example.consultagastosdeputados.R;
 import com.example.consultagastosdeputados.api.ApiDeputado;
 import com.example.consultagastosdeputados.api.RetroFit;
 import com.example.consultagastosdeputados.model.Deputados;
+import com.example.consultagastosdeputados.model.DeputadosResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,9 @@ public class BuscaDeputados extends AppCompatActivity {
     private Spinner spSiglaSexo;
     private Button btVoltar;
     private Button btBuscar;
+    private String siglaPartido;
+    private String SiglaEstado;
+    private String SiglaSexo;
     private Map<Spinner, List<String>> spinnerDataMap = new HashMap<>();
 
     @Override
@@ -146,13 +151,17 @@ public class BuscaDeputados extends AppCompatActivity {
         spSiglaPartido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Obtém o item selecionado no Spinner
-                String selectedItem = (String) parentView.getItemAtPosition(position);
 
-                // Faça algo com o item selecionado, por exemplo, exibir em um Toast
-                Toast.makeText(BuscaDeputados.this, "Item selecionado: " + selectedItem, Toast.LENGTH_SHORT).show();
+                if(position != 0){
+
+                    siglaPartido = (String) parentView.getItemAtPosition(position);
+
+                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
+                    Toast.makeText(BuscaDeputados.this, "Item selecionado: " + siglaPartido, Toast.LENGTH_SHORT).show();
+                } else{
+                    siglaPartido = null;
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Ação quando nenhum item é selecionado (opcional)
@@ -161,13 +170,17 @@ public class BuscaDeputados extends AppCompatActivity {
         spSiglaEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Obtém o item selecionado no Spinner
-                String selectedItem = (String) parentView.getItemAtPosition(position);
 
-                // Faça algo com o item selecionado, por exemplo, exibir em um Toast
-                Toast.makeText(BuscaDeputados.this, "Item selecionado: " + selectedItem, Toast.LENGTH_SHORT).show();
+                if (position != 0){
+                    // Obtém o item selecionado no Spinner
+                    SiglaEstado = (String) parentView.getItemAtPosition(position);
+
+                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
+                    Toast.makeText(BuscaDeputados.this, "Item selecionado: " + SiglaEstado, Toast.LENGTH_SHORT).show();
+                }else {
+                    SiglaEstado = null;
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Ação quando nenhum item é selecionado (opcional)
@@ -176,78 +189,95 @@ public class BuscaDeputados extends AppCompatActivity {
         spSiglaSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Obtém o item selecionado no Spinner
-                String selectedItem = (String) parentView.getItemAtPosition(position);
+                if (position != 0){
+                    // Obtém o item selecionado no Spinner
+                    SiglaSexo = (String) parentView.getItemAtPosition(position);
 
-                // Faça algo com o item selecionado, por exemplo, exibir em um Toast
-                Toast.makeText(BuscaDeputados.this, "Item selecionado: " + selectedItem, Toast.LENGTH_SHORT).show();
+                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
+                    Toast.makeText(BuscaDeputados.this, "Item selecionado: " + SiglaSexo, Toast.LENGTH_SHORT).show();
+                }else {
+                    SiglaSexo = null;
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // Ação quando nenhum item é selecionado (opcional)
             }
         });
+
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiDeputado apiDeputado = RetroFit.GET_DEPUTADO();
+                buscaDeputado();
+            }
+        });
 
-                Call<List<Deputados>> deputadosCall = apiDeputado.obterDeputados();
-                deputadosCall.enqueue(new Callback<List<Deputados>>() {
-                    @Override
-                    public void onResponse(Call<List<Deputados>> call, Response<List<Deputados>> response) {
-                        if (response.isSuccessful()) {
-                            List<Deputados> deputados = response.body();
+    }
 
-                            // Obtenha uma referência ao TableLayout
-                            TableLayout tabelaDeputados = findViewById(R.id.tabelaDeputados);
+    public void buscaDeputado() {
 
-                            // Adicione dinamicamente linhas à tabela para cada deputado
-                            for (Deputados deputado : deputados) {
-                                TableRow row = new TableRow(BuscaDeputados.this);
+        ApiDeputado apiDeputado = RetroFit.GET_DEPUTADO();
+        Call<DeputadosResponse> deputadosCall = apiDeputado.obterDeputados(siglaPartido, edNome.getText().toString(), SiglaEstado, SiglaSexo);
+        deputadosCall.enqueue(new Callback<DeputadosResponse>() {
+            @Override
+            public void onResponse(Call<DeputadosResponse> call, Response<DeputadosResponse> response) {
+                if (response.isSuccessful()) {
 
-                                TextView txtId = new TextView(BuscaDeputados.this);
-                                txtId.setText(deputado.getId());
-                                txtId.setPadding(5, 5, 5, 5);
-                                row.addView(txtId);
+                    DeputadosResponse deputadosResponse = response.body();
+                    List<Deputados> deputados = new ArrayList<>();
+                    deputados.clear();
+                    deputados = deputadosResponse.getDados();
 
-                                TextView txtNome = new TextView(BuscaDeputados.this);
-                                txtNome.setText(deputado.getNome());
-                                txtNome.setPadding(5, 5, 5, 5);
-                                row.addView(txtNome);
 
-                                TextView txtPartido = new TextView(BuscaDeputados.this);
-                                txtPartido.setText(deputado.getSiglaPartido());
-                                txtPartido.setPadding(5, 5, 5, 5);
-                                row.addView(txtPartido);
+                    // Obtenha uma referência ao TableLayout
+                    TableLayout tabelaDeputados = findViewById(R.id.tabelaDeputados);
 
-                                TextView txtUF = new TextView(BuscaDeputados.this);
-                                txtUF.setText(deputado.getSiglaUf());
-                                txtUF.setPadding(5, 5, 5, 5);
-                                row.addView(txtUF);
+                    // Adicione dinamicamente linhas à tabela para cada deputado
+                    for (Deputados deputado : deputados) {
+                        TableRow row = new TableRow(BuscaDeputados.this);
 
-                                TextView txtEmail = new TextView(BuscaDeputados.this);
-                                txtEmail.setText(deputado.getEmail());
-                                txtEmail.setPadding(5, 5, 5, 5);
-                                row.addView(txtEmail);
+                        TextView txtId = new TextView(BuscaDeputados.this);
+                        txtId.setText(deputado.getId());
+                        txtId.setPadding(5, 5, 5, 5);
+                        row.addView(txtId);
 
-                                // Adicione a nova linha à tabela
-                                tabelaDeputados.addView(row);
-                            }
-                        } else {
-                            // Lógica para lidar com uma resposta de erro
-                            Toast.makeText(BuscaDeputados.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
-                        }
+                        TextView txtNome = new TextView(BuscaDeputados.this);
+                        txtNome.setText(deputado.getNome());
+                        txtNome.setPadding(5, 5, 5, 5);
+                        row.addView(txtNome);
+
+                        TextView txtPartido = new TextView(BuscaDeputados.this);
+                        txtPartido.setText(deputado.getSiglaPartido());
+                        txtPartido.setPadding(5, 5, 5, 5);
+                        row.addView(txtPartido);
+
+                        TextView txtUF = new TextView(BuscaDeputados.this);
+                        txtUF.setText(deputado.getSiglaUf());
+                        txtUF.setPadding(5, 5, 5, 5);
+                        row.addView(txtUF);
+
+                        TextView txtEmail = new TextView(BuscaDeputados.this);
+                        txtEmail.setText(deputado.getEmail());
+                        txtEmail.setPadding(5, 5, 5, 5);
+                        row.addView(txtEmail);
+
+                        // Adicione a nova linha à tabela
+                        tabelaDeputados.addView(row);
                     }
+                } else {
+                    // Lógica para lidar com uma resposta de erro
+                    Toast.makeText(BuscaDeputados.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<List<Deputados>> call, Throwable t) {
-                        // Lógica para lidar com falhas na requisição
-                        Toast.makeText(BuscaDeputados.this, "Falha com o Servidor!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Call<DeputadosResponse> call, Throwable t) {
+                Log.d("DEBUG", "Erro: " + t.getMessage() + call.toString());
+
+                System.out.println(t.getMessage());
+                Toast.makeText(BuscaDeputados.this, "Falha com o Servidor! aaaa" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

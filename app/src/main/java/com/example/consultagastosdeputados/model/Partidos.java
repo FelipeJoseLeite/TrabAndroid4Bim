@@ -5,14 +5,23 @@ public class Partidos {
     private Long id;
     private String sigla;
     private String nome;
+    private String uri;
 
     public Partidos() {
     }
-
-    public Partidos(Long id, String sigla, String nome) {
+    public Partidos(Long id, String sigla, String nome, String uri) {
         this.id = id;
         this.sigla = sigla;
         this.nome = nome;
+        this.uri = uri;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public Long getId() {
