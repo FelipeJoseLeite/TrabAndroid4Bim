@@ -35,28 +35,6 @@
                     android:padding="5dp"
                     android:gravity="center"
                     android:textStyle="bold"/>
-
-            </TableRow>
-
-            <TableRow>
-                <!-- Substitua os valores abaixo pelos dados reais do seu JSON -->
-                <TextView
-                    android:text="0"
-                    android:padding="5dp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="string"
-                    android:padding="5dp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="string"
-                    android:padding="5dp"
-                    android:gravity="center"/>
-                <TextView
-                    android:text="string"
-                    android:padding="5dp"
-                    android:gravity="center"/>
-
             </TableRow>
         </TableLayout>
     </HorizontalScrollView>

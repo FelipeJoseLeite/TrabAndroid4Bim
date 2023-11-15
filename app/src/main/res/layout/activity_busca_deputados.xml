@@ -8,123 +8,150 @@
     android:orientation="vertical"
     android:background="@color/prata2">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/prata1">
-
-        <TextView
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gastos de Deputados"
-            android:textSize="25dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:fontFamily="@font/ubunto_medium"
-            android:layout_marginVertical="10dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="10dp">
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/prata1">
 
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="30dp"
-            android:text="Nome:"
-            android:textSize="22dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:textColor="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gastos de Deputados"
+                    android:textSize="25dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:layout_marginVertical="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp">
 
-        <EditText
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:background="@drawable/edit"
-            android:id="@+id/edNome"/>
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:text="Nome:"
+                    android:textSize="22dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:textColor="@color/black"/>
 
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="30dp"
-            android:text="Sigla do Estado:"
-            android:textSize="22dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"/>
+                <EditText
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit"
+                    android:id="@+id/edNome"/>
 
-        <Spinner
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:background="@drawable/edit"
-            android:id="@+id/spSiglaEstado"/>
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:text="Sigla do Estado:"
+                    android:textSize="22dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"/>
 
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="30dp"
-            android:text="Sigla do Partido:"
-            android:textSize="22dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"/>
+                <Spinner
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit"
+                    android:id="@+id/spSiglaEstado"/>
 
-        <Spinner
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:background="@drawable/edit"
-            android:id="@+id/spSiglaPartido"/>
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:text="Sigla do Partido:"
+                    android:textSize="22dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"/>
 
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="30dp"
-            android:text="Sigla Sexo:"
-            android:textSize="22dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:textColor="@color/black"
-            android:layout_marginTop="5dp"/>
+                <Spinner
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit"
+                    android:id="@+id/spSiglaPartido"/>
 
-        <Spinner
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:background="@drawable/edit"
-            android:id="@+id/spSiglaSexo"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="50dp">
+                <TextView
+                    android:layout_width="180dp"
+                    android:layout_height="30dp"
+                    android:text="Sigla Sexo:"
+                    android:textSize="22dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"/>
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:text="Voltar"
-            android:textSize="15dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:background="@drawable/botaoamarelo"
-            android:id="@+id/btVoltar"/>
+                <Spinner
+                    android:layout_width="350dp"
+                    android:layout_height="40dp"
+                    android:padding="5dp"
+                    android:background="@drawable/edit"
+                    android:id="@+id/spSiglaSexo"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="50dp">
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:text="Buscar"
-            android:textSize="15dp"
-            android:layout_marginLeft="50dp"
-            android:fontFamily="@font/ubunto_medium"
-            android:background="@drawable/botaoverde"
-            android:id="@+id/btBuscar"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp">
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:text="Voltar"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:background="@drawable/botaoamarelo"
+                    android:id="@+id/btVoltar"/>
 
-        <include layout="@layout/activity_tabela" />
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:text="Buscar"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="50dp"
+                    android:fontFamily="@font/ubunto_medium"
+                    android:background="@drawable/botaoverde"
+                    android:id="@+id/btBuscar"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="7dp">
 
-    </LinearLayout>
+                <include layout="@layout/activity_tabela" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp">
+
+                <include layout="@layout/activity_busca_gastos" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="7dp"
+                android:layout_marginHorizontal="10dp">
+
+                <include layout="@layout/activity_tabela_gastos" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

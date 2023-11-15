@@ -12,32 +12,51 @@
             android:layout_height="wrap_content"
             android:stretchColumns="*"
             android:background="@color/white"
-            android:id="@+id/tabelaDeputados">
+            android:id="@+id/tabelaGastosDeputado">
 
             <TableRow>
                 <TextView
-                    android:text="ID"
-                    android:padding="5dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:id="@+id/tvId"/>
-                <TextView
-                    android:text="Nome"
+                    android:text="Ano"
                     android:padding="5dp"
                     android:gravity="center"
                     android:textStyle="bold"/>
                 <TextView
-                    android:text="Sigla Partido"
+                    android:text="Mes"
                     android:padding="5dp"
                     android:gravity="center"
                     android:textStyle="bold"/>
                 <TextView
-                    android:text="Sigla UF"
+                    android:text="Tipo da Despesa"
                     android:padding="5dp"
                     android:gravity="center"
                     android:textStyle="bold"/>
                 <TextView
-                    android:text="Email"
+                    android:text="tipoDocumento"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="dataDocumento"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="valorDocumento"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="nomeFornecedor"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="valorLiquido"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:text="parcela"
                     android:padding="5dp"
                     android:gravity="center"
                     android:textStyle="bold"/>
