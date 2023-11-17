@@ -71,7 +71,6 @@ public class BuscaDeputados extends AppCompatActivity {
             }
         });
 
-        // Crie uma lista de dados para cada Spinner
         List<String> data1 = new ArrayList<>();
         data1.add("");
         data1.add("MDB");
@@ -145,12 +144,10 @@ public class BuscaDeputados extends AppCompatActivity {
         spinnerDataMap.put(spSiglaEstado, data2);
         spinnerDataMap.put(spSiglaSexo, data3);
 
-        // Crie um adaptador para cada Spinner
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data1);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data2);
         ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, data3);
 
-        // Atribua os adaptadores aos Spinners
         spSiglaPartido.setAdapter(adapter1);
         spSiglaEstado.setAdapter(adapter2);
         spSiglaSexo.setAdapter(adapter3);
@@ -163,7 +160,6 @@ public class BuscaDeputados extends AppCompatActivity {
 
                     siglaPartido = (String) parentView.getItemAtPosition(position);
 
-                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
                     Toast.makeText(BuscaDeputados.this, "Item selecionado: " + siglaPartido, Toast.LENGTH_SHORT).show();
                 } else{
                     siglaPartido = null;
@@ -171,7 +167,6 @@ public class BuscaDeputados extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Ação quando nenhum item é selecionado (opcional)
             }
         });
         spSiglaEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -179,10 +174,8 @@ public class BuscaDeputados extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (position != 0){
-                    // Obtém o item selecionado no Spinner
                     SiglaEstado = (String) parentView.getItemAtPosition(position);
 
-                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
                     Toast.makeText(BuscaDeputados.this, "Item selecionado: " + SiglaEstado, Toast.LENGTH_SHORT).show();
                 }else {
                     SiglaEstado = null;
@@ -190,17 +183,14 @@ public class BuscaDeputados extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Ação quando nenhum item é selecionado (opcional)
             }
         });
         spSiglaSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (position != 0){
-                    // Obtém o item selecionado no Spinner
                     SiglaSexo = (String) parentView.getItemAtPosition(position);
 
-                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
                     Toast.makeText(BuscaDeputados.this, "Item selecionado: " + SiglaSexo, Toast.LENGTH_SHORT).show();
                 }else {
                     SiglaSexo = null;
@@ -208,7 +198,6 @@ public class BuscaDeputados extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Ação quando nenhum item é selecionado (opcional)
             }
         });
 
@@ -223,6 +212,15 @@ public class BuscaDeputados extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ApiGastosDeputado apiGastosDeputado = RetroFit.GET_GASTOSDEPUTADO();
+                Log.d("DEBUG", "EROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                String inputText = edIdDeputado.getText().toString().trim();
+
+                if (!inputText.isEmpty()) {
+                    int idDeputado = Integer.valueOf(inputText);
+                } else {
+                    Toast.makeText(BuscaDeputados.this, "Por favor, insira um ID de Deputado.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Call<GastosResponse> gastosCall = apiGastosDeputado.obterGastosDeputados(Integer.valueOf(edIdDeputado.getText().toString()));
                 gastosCall.enqueue(new Callback<GastosResponse>() {
 
@@ -234,16 +232,13 @@ public class BuscaDeputados extends AppCompatActivity {
                             List<GastosDeputados> gastosDeputados = new ArrayList<>();
                             gastosDeputados.clear();
                             gastosDeputados = gastosResponse.getDados();
-                            // Obtenha uma referência ao TableLayout
                             TableLayout tabelaGastos = findViewById(R.id.tabelaGastosDeputado);
 
                             tabelaGastos.removeViews(1, tabelaGastos.getChildCount() - 1);
 
-                            // Adicione dinamicamente linhas à tabela para cada deputado
                             for (GastosDeputados gastos : gastosDeputados) {
                                 TableRow row = new TableRow(BuscaDeputados.this);
 
-                                // Preencha as células com os dados correspondentes
                                 TextView txtAno = new TextView(BuscaDeputados.this);
                                 txtAno.setText(Integer.toString(gastos.getAno()));
                                 txtAno.setPadding(5, 5, 5, 5);
@@ -289,11 +284,9 @@ public class BuscaDeputados extends AppCompatActivity {
                                 txtParcela.setPadding(5, 5, 5, 5);
                                 row.addView(txtParcela);
 
-                                // Adicione a nova linha à tabela
                                 tabelaGastos.addView(row);
                             }
                         } else {
-                            // Lógica para lidar com uma resposta de erro
                             Toast.makeText(BuscaDeputados.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -301,7 +294,6 @@ public class BuscaDeputados extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<GastosResponse> call, Throwable t) {
                         Log.d("DEBUG", "Erro: " + t.getMessage() + call.toString());
-
                         System.out.println(t.getMessage());
                         Toast.makeText(BuscaDeputados.this, "Falha com o Servidor! aaaa" + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -325,14 +317,10 @@ public class BuscaDeputados extends AppCompatActivity {
                     deputados.clear();
                     deputados = deputadosResponse.getDados();
 
-
-                    // Obtenha uma referência ao TableLayout
                     TableLayout tabelaDeputados = findViewById(R.id.tabelaDeputados);
 
                     tabelaDeputados.removeViews(1, tabelaDeputados.getChildCount() - 1);
 
-
-                    // Adicione dinamicamente linhas à tabela para cada deputado
                     for (Deputados deputado : deputados) {
                         TableRow row = new TableRow(BuscaDeputados.this);
 
@@ -361,11 +349,9 @@ public class BuscaDeputados extends AppCompatActivity {
                         txtEmail.setPadding(5, 5, 5, 5);
                         row.addView(txtEmail);
 
-                        // Adicione a nova linha à tabela
                         tabelaDeputados.addView(row);
                     }
                 } else {
-                    // Lógica para lidar com uma resposta de erro
                     Toast.makeText(BuscaDeputados.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -379,5 +365,4 @@ public class BuscaDeputados extends AppCompatActivity {
             }
         });
     }
-
 }

@@ -98,10 +98,8 @@ public class BuscaPartidos extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (position != 0){
-                    // Obtém o item selecionado no Spinner
                     siglaPartido = (String) parentView.getItemAtPosition(position);
 
-                    // Faça algo com o item selecionado, por exemplo, exibir em um Toast
                     Toast.makeText(BuscaPartidos.this, "Item selecionado: " + siglaPartido, Toast.LENGTH_SHORT).show();
                 }else {
                     siglaPartido = null;
@@ -109,7 +107,6 @@ public class BuscaPartidos extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Ação quando nenhum item é selecionado (opcional)
             }
         });
         btBuscar.setOnClickListener(new View.OnClickListener() {
@@ -135,16 +132,13 @@ public class BuscaPartidos extends AppCompatActivity {
                     partidos = partidosResponse.getDados();
 
 
-                    // Obtenha uma referência ao TableLayout
                     TableLayout tabelaPartidos = findViewById(R.id.tabelaPartidos);
 
                     tabelaPartidos.removeViews(1, tabelaPartidos.getChildCount() - 1);
 
-                    // Adicione dinamicamente linhas à tabela para cada deputado
                     for (Partidos partido : partidos) {
                         TableRow row = new TableRow(BuscaPartidos.this);
 
-                        // Preencha as células com os dados correspondentes
                         TextView txtId = new TextView(BuscaPartidos.this);
                         txtId.setText(String.valueOf(partido.getId()));
                         txtId.setPadding(5, 5, 5, 5);
@@ -165,11 +159,9 @@ public class BuscaPartidos extends AppCompatActivity {
                         txtUri.setPadding(5, 5, 5, 5);
                         row.addView(txtUri);
 
-                        // Adicione a nova linha à tabela
                         tabelaPartidos.addView(row);
                     }
                 } else {
-                    // Lógica para lidar com uma resposta de erro
                     Toast.makeText(BuscaPartidos.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
                 }
             }
