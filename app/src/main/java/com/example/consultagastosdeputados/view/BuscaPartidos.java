@@ -138,6 +138,8 @@ public class BuscaPartidos extends AppCompatActivity {
                     // Obtenha uma referência ao TableLayout
                     TableLayout tabelaPartidos = findViewById(R.id.tabelaPartidos);
 
+                    tabelaPartidos.removeViews(1, tabelaPartidos.getChildCount() - 1);
+
                     // Adicione dinamicamente linhas à tabela para cada deputado
                     for (Partidos partido : partidos) {
                         TableRow row = new TableRow(BuscaPartidos.this);

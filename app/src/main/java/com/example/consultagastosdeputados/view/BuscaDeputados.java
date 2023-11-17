@@ -18,9 +18,12 @@ import android.widget.Toast;
 
 import com.example.consultagastosdeputados.R;
 import com.example.consultagastosdeputados.api.ApiDeputado;
+import com.example.consultagastosdeputados.api.ApiGastosDeputado;
 import com.example.consultagastosdeputados.api.RetroFit;
 import com.example.consultagastosdeputados.model.Deputados;
 import com.example.consultagastosdeputados.model.DeputadosResponse;
+import com.example.consultagastosdeputados.model.GastosDeputados;
+import com.example.consultagastosdeputados.model.GastosResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,8 @@ public class BuscaDeputados extends AppCompatActivity {
     private Spinner spSiglaSexo;
     private Button btVoltar;
     private Button btBuscar;
+    private EditText edIdDeputado;
+    private Button btBuscarGastos;
     private String siglaPartido;
     private String SiglaEstado;
     private String SiglaSexo;
@@ -55,6 +60,8 @@ public class BuscaDeputados extends AppCompatActivity {
         spSiglaSexo = findViewById(R.id.spSiglaSexo);
         btBuscar = findViewById(R.id.btBuscar);
         btVoltar = findViewById(R.id.btVoltar);
+        btBuscarGastos = findViewById(R.id.btBuscarGastos);
+        edIdDeputado = findViewById(R.id.edIdDeputado);
 
         btVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +219,96 @@ public class BuscaDeputados extends AppCompatActivity {
             }
         });
 
+        btBuscarGastos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiGastosDeputado apiGastosDeputado = RetroFit.GET_GASTOSDEPUTADO();
+                Call<GastosResponse> gastosCall = apiGastosDeputado.obterGastosDeputados(Integer.valueOf(edIdDeputado.getText().toString()));
+                gastosCall.enqueue(new Callback<GastosResponse>() {
+
+                    @Override
+                    public void onResponse(Call<GastosResponse> call, Response<GastosResponse> response) {
+                        if (response.isSuccessful()) {
+
+                            GastosResponse gastosResponse = response.body();
+                            List<GastosDeputados> gastosDeputados = new ArrayList<>();
+                            gastosDeputados.clear();
+                            gastosDeputados = gastosResponse.getDados();
+                            // Obtenha uma referência ao TableLayout
+                            TableLayout tabelaGastos = findViewById(R.id.tabelaGastosDeputado);
+
+                            tabelaGastos.removeViews(1, tabelaGastos.getChildCount() - 1);
+
+                            // Adicione dinamicamente linhas à tabela para cada deputado
+                            for (GastosDeputados gastos : gastosDeputados) {
+                                TableRow row = new TableRow(BuscaDeputados.this);
+
+                                // Preencha as células com os dados correspondentes
+                                TextView txtAno = new TextView(BuscaDeputados.this);
+                                txtAno.setText(Integer.toString(gastos.getAno()));
+                                txtAno.setPadding(5, 5, 5, 5);
+                                row.addView(txtAno);
+
+                                TextView txtMes = new TextView(BuscaDeputados.this);
+                                txtMes.setText(Integer.toString(gastos.getMes()));
+                                txtMes.setPadding(5, 5, 5, 5);
+                                row.addView(txtMes);
+
+                                TextView txtTipoDespesa = new TextView(BuscaDeputados.this);
+                                txtTipoDespesa.setText(gastos.getTipoDespesa());
+                                txtTipoDespesa.setPadding(5, 5, 5, 5);
+                                row.addView(txtTipoDespesa);
+
+                                TextView txtTipoDocumento = new TextView(BuscaDeputados.this);
+                                txtTipoDocumento.setText(gastos.getTipoDocumento());
+                                txtTipoDocumento.setPadding(5, 5, 5, 5);
+                                row.addView(txtTipoDocumento);
+
+                                TextView txtDataDocumento = new TextView(BuscaDeputados.this);
+                                txtDataDocumento.setText(gastos.getDataDocumento());
+                                txtDataDocumento.setPadding(5, 5, 5, 5);
+                                row.addView(txtDataDocumento);
+
+                                TextView txtValorDocumento = new TextView(BuscaDeputados.this);
+                                txtValorDocumento.setText(Double.toString(gastos.getValorDocumento()));
+                                txtValorDocumento.setPadding(5, 5, 5, 5);
+                                row.addView(txtValorDocumento);
+
+                                TextView txtNomeFornecedor = new TextView(BuscaDeputados.this);
+                                txtNomeFornecedor.setText(gastos.getNomeFornecedor());
+                                txtNomeFornecedor.setPadding(5, 5, 5, 5);
+                                row.addView(txtNomeFornecedor);
+
+                                TextView txtValorLiquido = new TextView(BuscaDeputados.this);
+                                txtValorLiquido.setText(Double.toString(gastos.getValorLiquido()));
+                                txtValorLiquido.setPadding(5, 5, 5, 5);
+                                row.addView(txtValorLiquido);
+
+                                TextView txtParcela = new TextView(BuscaDeputados.this);
+                                txtParcela.setText(Integer.toString(gastos.getParcela()));
+                                txtParcela.setPadding(5, 5, 5, 5);
+                                row.addView(txtParcela);
+
+                                // Adicione a nova linha à tabela
+                                tabelaGastos.addView(row);
+                            }
+                        } else {
+                            // Lógica para lidar com uma resposta de erro
+                            Toast.makeText(BuscaDeputados.this, "Não foi possível buscar os Deputados.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<GastosResponse> call, Throwable t) {
+                        Log.d("DEBUG", "Erro: " + t.getMessage() + call.toString());
+
+                        System.out.println(t.getMessage());
+                        Toast.makeText(BuscaDeputados.this, "Falha com o Servidor! aaaa" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
     }
 
     public void buscaDeputado() {
@@ -231,6 +328,9 @@ public class BuscaDeputados extends AppCompatActivity {
 
                     // Obtenha uma referência ao TableLayout
                     TableLayout tabelaDeputados = findViewById(R.id.tabelaDeputados);
+
+                    tabelaDeputados.removeViews(1, tabelaDeputados.getChildCount() - 1);
+
 
                     // Adicione dinamicamente linhas à tabela para cada deputado
                     for (Deputados deputado : deputados) {

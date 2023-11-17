@@ -16,14 +16,14 @@ public class GastosDeputados {
     private String tipoDespesa;
     private String tipoDocumento;
     private String urlDocumento;
-    private double valorDocumento;
-    private double valorGlosa;
-    private double valorLiquido;
+    private Double valorDocumento;
+    private Double valorGlosa;
+    private Double valorLiquido;
 
     public GastosDeputados() {
     }
 
-    public GastosDeputados(int ano, String cnpjCpfFornecedor, int codDocumento, int codLote, int codTipoDocumento, String dataDocumento, int mes, String nomeFornecedor, String numDocumento, String numRessarcimento, int parcela, String tipoDespesa, String tipoDocumento, String urlDocumento, double valorDocumento, double valorGlosa, double valorLiquido) {
+    public GastosDeputados(int ano, String cnpjCpfFornecedor, int codDocumento, int codLote, int codTipoDocumento, String dataDocumento, int mes, String nomeFornecedor, String numDocumento, String numRessarcimento, int parcela, String tipoDespesa, String tipoDocumento, String urlDocumento, Double valorDocumento, Double valorGlosa, Double valorLiquido) {
         this.ano = ano;
         this.cnpjCpfFornecedor = cnpjCpfFornecedor;
         this.codDocumento = codDocumento;
@@ -155,27 +155,27 @@ public class GastosDeputados {
         this.urlDocumento = urlDocumento;
     }
 
-    public double getValorDocumento() {
+    public Double getValorDocumento() {
         return valorDocumento;
     }
 
-    public void setValorDocumento(double valorDocumento) {
+    public void setValorDocumento(Double valorDocumento) {
         this.valorDocumento = valorDocumento;
     }
 
-    public double getValorGlosa() {
+    public Double getValorGlosa() {
         return valorGlosa;
     }
 
-    public void setValorGlosa(double valorGlosa) {
+    public void setValorGlosa(Double valorGlosa) {
         this.valorGlosa = valorGlosa;
     }
 
-    public double getValorLiquido() {
+    public Double getValorLiquido() {
         return valorLiquido;
     }
 
-    public void setValorLiquido(double valorLiquido) {
+    public void setValorLiquido(Double valorLiquido) {
         this.valorLiquido = valorLiquido;
     }
 }
